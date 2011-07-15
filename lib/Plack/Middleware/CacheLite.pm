@@ -115,7 +115,7 @@ Plack::Middleware::CacheLite - Standalone implementation of cache
             keygen => sub {
                 my $env = shift;
                 
-                # generate key here maybe with $c
+                # generate key here maybe with $env
                 # return undef causes cache disable
                 
                 return $key;
