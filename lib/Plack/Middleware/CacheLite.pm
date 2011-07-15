@@ -15,6 +15,10 @@ our $VERSION = '0.01';
         
         $self->cache->max_keys($self->max_keys || 100);
         
+        if (! $self->threshold) {
+            $self->threshold(0);
+        }
+        
         if (! $self->keygen) {
             $self->keygen(sub {
                 if (uc $_[0]->{REQUEST_METHOD} eq 'GET') {
@@ -32,10 +36,9 @@ our $VERSION = '0.01';
     sub call {
         my ($self, $env) = @_;
         
-        my $cache = $self->cache;
-        
         if (my $key = $self->keygen->($env)) {
-            if (my $res = $cache->get($key)) {
+            
+            if (my $res = $self->cache->get($key)) {
                 return $res;
             }
             
@@ -45,15 +48,12 @@ our $VERSION = '0.01';
             
             my $res = $self->app->($env);
             
-            if (time - $ts_s > ($self->threshold || 0)) {
-                if ($res->[0] && $res->[0] == 200) {
-                    $cache->set($key, $res, $_EXPIRE_CODE_ARRAY);
-                }
+            if ($res->[0] == 200 && time - $ts_s > $self->threshold) {
+                $self->cache->set($key, $res, $_EXPIRE_CODE_ARRAY);
             }
             return $res;
-        } else {
-            return $self->app->($env);
         }
+        $self->app->($env);
     }
 
 package Plack::Middleware::CacheLite::_Cache;
