@@ -16,7 +16,11 @@ our $VERSION = '0.01';
         $self->cache->max_keys($self->max_keys || 100);
         
         if (! $self->keygen) {
-            $self->keygen(sub {$_[0]->{REQUEST_URI} || $_[0]->{PATH_INFO}});
+            $self->keygen(sub {
+                if ($_[0]->{REQUEST_METHOD} eq 'GET') {
+                    $_[0]->{REQUEST_URI} || $_[0]->{PATH_INFO}
+                }
+            });
         }
     }
     
@@ -30,7 +34,7 @@ our $VERSION = '0.01';
         
         my $cache = $self->cache;
         
-        if ($env->{REQUEST_METHOD} eq 'GET' && (my $key = $self->keygen->($env))) {
+        if (my $key = $self->keygen->($env)) {
             if (my $res = $cache->get($key)) {
                 return $res;
             }
