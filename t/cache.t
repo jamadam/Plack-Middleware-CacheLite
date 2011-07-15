@@ -5,8 +5,6 @@ use warnings;
 
 use Test::More tests => 25;
 
-# "You know, most people pray silently.
-#  Marge He's way the hell up there."
 use_ok 'Plack::Middleware::CacheLite';
 
 my $cache;
