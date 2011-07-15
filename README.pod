@@ -47,7 +47,9 @@ The following is the default.
     $self->plugin(cache_lite => {
         keygen => sub {
             $env = shift;
-            return $env->{REQUEST_URI} || $env->{PATH_INFO}
+            if (uc $env->{REQUEST_METHOD} eq 'GET') {
+                return $env->{REQUEST_URI} || $env->{PATH_INFO}
+            }
         }
     });
 

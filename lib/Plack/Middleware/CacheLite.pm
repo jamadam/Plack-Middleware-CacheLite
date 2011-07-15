@@ -17,7 +17,7 @@ our $VERSION = '0.01';
         
         if (! $self->keygen) {
             $self->keygen(sub {
-                if ($_[0]->{REQUEST_METHOD} eq 'GET') {
+                if (uc $_[0]->{REQUEST_METHOD} eq 'GET') {
                     $_[0]->{REQUEST_URI} || $_[0]->{PATH_INFO}
                 }
             });
@@ -153,7 +153,9 @@ The following is the default.
     $self->plugin(cache_lite => {
         keygen => sub {
             $env = shift;
-            return $env->{REQUEST_URI} || $env->{PATH_INFO}
+            if (uc $env->{REQUEST_METHOD} eq 'GET') {
+                return $env->{REQUEST_URI} || $env->{PATH_INFO}
+            }
         }
     });
 
