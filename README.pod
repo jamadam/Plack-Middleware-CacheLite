@@ -1,6 +1,6 @@
 =head1 NAME
 
-Plack::Middleware::CacheLite - Standalone implementation of cache
+Plack::Middleware::CacheLite - Stand alone implementation of cache
 
 =head1 SYNOPSIS
 
@@ -24,7 +24,7 @@ Plack::Middleware::CacheLite - Standalone implementation of cache
 
 =head1 DESCRIPTION
 
-Plack::Middleware::CacheLite is a standalone cache middlware for plack
+Plack::Middleware::CacheLite is a stand alone cache middleware for plack
 
 This plugin caches whole response into key-value object and returns it for next
 request instead of invoking app. You can specify the cache key by
@@ -95,15 +95,21 @@ This appends a code reference for cache expiration control.
         ...
     }
 
-=head2 new
+=head2 call
+
+Internal use.
+
+=head2 prepare_app
+
+Internal use.
 
 =head1 AUTHOR
 
-sugama, E<lt>sugama@jamadam.comE<gt>
+Sugama, E<lt>sugama@jamadam.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2011 by sugama.
+Copyright (C) 2011 by jamadam.
 
 This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.

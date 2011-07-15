@@ -45,9 +45,9 @@ namespace
 HTML
 utf
 plugins
-mojolicious
 middleware
 middlewares
 plack
 app
 keygen
+env
