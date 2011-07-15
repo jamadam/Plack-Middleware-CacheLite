@@ -1,0 +1,16 @@
+Changes
+lib/Plack/Middleware/CacheLite.pm
+Makefile.PL
+MANIFEST			This list of files
+README
+t/00_load.t
+t/99_pod.t
+t/99_podcoverage.t
+t/app.t
+t/cache.t
+tx/memory_leak.t
+tx/perlcritic.t
+tx/perlcriticrc
+tx/pod.t
+tx/podcoverage.t
+tx/podspell.t
