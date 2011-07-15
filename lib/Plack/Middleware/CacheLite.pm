@@ -47,7 +47,7 @@ our $VERSION = '0.01';
             
             if (time - $ts_s > ($self->threshold || 0)) {
                 if ($res->[0] && $res->[0] == 200) {
-                    $cache->set($key, $res, \@$_EXPIRE_CODE_ARRAY);
+                    $cache->set($key, $res, $_EXPIRE_CODE_ARRAY);
                 }
             }
             return $res;
@@ -87,8 +87,7 @@ use Plack::Util::Accessor qw(max_keys);
         my $stack = $self->{$ATTR_STACK} ||= [];
         
         while (@$stack >= $keys) {
-            my $key = shift @$stack;
-            delete $cache->{$key};
+            delete $cache->{shift @$stack};
         }
         
         push @$stack, $key;
