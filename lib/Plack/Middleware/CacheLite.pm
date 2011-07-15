@@ -155,14 +155,6 @@ The following is the default.
 
 returning undef causes both cache generation and reference disabled.
 
-=head2 max_size => number [optional]
-
-Maximum byte length for total of body lengths of cache. Default is 5000000.
-Since it only measures body length, this value must be considered for rough
-limitation for memory size.
-
-    $self->plugin(cache_lite => {max_size => 5000000});
-
 =head2 max_keys => number [optional]
 
 Maximum number of cache keys, defaults to 100.
