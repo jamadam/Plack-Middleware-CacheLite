@@ -49,6 +49,9 @@ our $VERSION = '0.01';
             my $res = $self->app->($env);
             
             if ($res->[0] == 200 && time - $ts_s > $self->threshold) {
+                my @body_slurped;
+                Plack::Util::foreach($res->[2], sub {push @body_slurped, $_[0]});
+                $res->[2] = \@body_slurped;
                 $self->cache->set($key, $res, $_EXPIRE_CODE_ARRAY);
             }
             return $res;
